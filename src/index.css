@@ -62,12 +62,22 @@ li {
   align-items: center;
 }
 
-.text {
+span {
   flex: 1;
+  cursor: pointer;
 }
 
-.delete-button, .move-button {
+.delete-button, .move-button, .clear-button {
   padding: 8px 12px;
   font-size: 1.4rem;
   margin-left: 10px;
+}
+
+.clear-button {
+  background-color: #1e1618;
+}
+
+.checked {
+  text-decoration: line-through;
+  flex: 1;
 }

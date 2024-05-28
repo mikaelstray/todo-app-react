@@ -11,7 +11,7 @@ function ToDoList() {
 
     function addTask() {
         if (newTask.trim() !== "") {
-            setTasks(t => [...t, newTask])
+            setTasks(t => [...t, {text: newTask, completed: false}])
             setNewTask("");
         }
     }
@@ -39,6 +39,22 @@ function ToDoList() {
         }
     }
 
+    function checkCompleted(index) {
+        const updatedTasks = tasks.map((task, i) =>
+            i === index ? { ...task, completed: !task.completed } : task
+        );
+        setTasks(updatedTasks);
+    }
+
+    function clearCompleted() {
+        const updatedTasks = tasks.filter(t => !t.completed);
+        setTasks(updatedTasks)
+    }
+
+    function clearAll() {
+        setTasks([])
+    }
+
     return(
         <div className={"to-do-list"}>
 
@@ -61,7 +77,9 @@ function ToDoList() {
             <ol>
                 {tasks.map((task, index) =>
                     <li key={index}>
-                        <span className={"text"}>{task}</span>
+                        <span className={task.completed ? 'checked' : ''}
+                              onClick={() => checkCompleted(index)}>{task.text}
+                        </span>
                         <button
                             className={"delete-button"}
                             onClick={() => deleteTask(index)}>
@@ -80,7 +98,16 @@ function ToDoList() {
                     </li>
                 )}
             </ol>
-
+            <button
+                className={"clear-button"}
+                onClick={() => clearCompleted()}>
+                Clear completed
+            </button>
+            <button
+                className={"clear-button"}
+                onClick={() => clearAll()}>
+                Clear all
+            </button>
         </div>
     );
 }
